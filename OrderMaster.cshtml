@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h2></h2>
-
 <div class="container">
     <h3>我的訂單</h3>
     <div>
@@ -22,7 +20,6 @@
             </thead>
             @if (Model == null)
             {
-
             }
             else
             {
@@ -34,9 +31,8 @@
                             <td>@i.f訂單編號</td>
                             <td>@i.f訂單總價 元</td>
                             <td>
-                                <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><span>食材清單</span></a>
-
-                                <div id="modal1" class="modal">
+                                <a class="waves-effect waves-light btn modal-trigger" href="#@i.f訂單編號"><span>食材清單</span></a>
+                                <div id="@i.f訂單編號" class="modal">
                                     <div class="modal-content">
                                         <table class="striped">
                                             <thead>
