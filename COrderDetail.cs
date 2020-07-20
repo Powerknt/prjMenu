@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,5 +15,6 @@ namespace prjMenu.Models
         public bool f是否購買 { get; set; }
         public int f食譜編號 { get; set; }
         public string f食材名稱 { get; set; }
+        public decimal f食材用量 { get; set; }
     }
 }
