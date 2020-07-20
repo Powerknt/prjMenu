@@ -39,7 +39,7 @@ namespace prjMenu.Models
             {
                 List<COrderDetail> 訂單細項 = new List<COrderDetail>();
                 COrderDetail cod = null;
-                string sql = "SELECT * FROM tOrderDetail WHERE fO_Id=";
+                string sql = "SELECT i.fRD_Ingredients, o.fO_Id, o.fQty, i.fRD_Unit, r.fRD_Dos,o.fOD_Check FROM tOrderDetail o inner join tIngredients i on o.fI_Id=i.fI_Id inner join tRecipeDetail r on r.ft_Id=o.fI_Id and o.fR_Id=r.fR_Id WHERE o.fO_Id=";
                 for (int i = 0; i < 回傳list.Count; i++)
                 {
                     sql += "'" + 回傳list[i].f訂單編號 + "'";
@@ -47,7 +47,7 @@ namespace prjMenu.Models
                     {
                         break;
                     }
-                    sql += "OR fO_Id=";
+                    sql += "OR o.fO_Id=";
                 }
                 con.Open();
                 SqlCommand cmd2 = new SqlCommand(sql, con);
@@ -62,6 +62,7 @@ namespace prjMenu.Models
                         cod.f食材名稱 = reader2["fRD_Ingredients"].ToString();
                         cod.f訂購數量 = (int)reader2["fQty"];
                         cod.f食材單位 = (string)reader2["fRD_Unit"];
+                        cod.f食材用量 = (decimal)reader2["fRD_Dos"];
                         訂單細項.Add(cod);
                     }
                 }
@@ -81,6 +82,7 @@ namespace prjMenu.Models
                                 {
                                     f食材名稱 = g.Key,
                                     f訂購數量 = g.Sum(x => x.f訂購數量),
+                                    f食材用量 = g.Sum(x => x.f食材用量 * x.f訂購數量),
                                     g.First().f食材單位
                                 };
 
@@ -90,6 +92,7 @@ namespace prjMenu.Models
                         odtemp.f食材名稱 = i.f食材名稱;
                         odtemp.f訂購數量 = i.f訂購數量;
                         odtemp.f食材單位 = i.f食材單位;
+                        odtemp.f食材用量 = i.f食材用量;
                         temp.Add(odtemp);
                     }
                     總項.list用戶訂單[j].list訂單明細 = temp;
