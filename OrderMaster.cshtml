@@ -1,0 +1,100 @@
+﻿@model prjMenu.Models.COrderMasterDetailList
+
+@{
+    ViewBag.Title = "我的訂單";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<h2></h2>
+
+<div class="container">
+    <h3>我的訂單</h3>
+    <div>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>訂購日期</th>
+                    <th>訂單編號</th>
+                    <th>訂單金額</th>
+                    <th>訂單內容</th>
+                    <th>處理狀態</th>
+                </tr>
+            </thead>
+            @if (Model == null)
+            {
+
+            }
+            else
+            {
+                foreach (var i in Model.list用戶訂單)
+                {
+                    <tbody>
+                        <tr>
+                            <td>@i.f訂購日期</td>
+                            <td>@i.f訂單編號</td>
+                            <td>@i.f訂單總價 元</td>
+                            <td>
+                                <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><span>食材清單</span></a>
+
+                                <div id="modal1" class="modal">
+                                    <div class="modal-content">
+                                        <table class="striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>品項</th>
+                                                    <th>份數</th>
+                                                    <th>單位</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (var j in i.list訂單明細)
+                                            {
+                                                <tbody>
+                                                    <tr>
+                                                        <td>@j.f食材名稱</td>
+                                                        <td>@j.f訂購數量</td>
+                                                        <td>@j.f食材單位</td>
+                                                    </tr>
+                                                </tbody>
+                                            }
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">關閉</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                @{
+                                    if (i.f訂單狀態 == true)
+                                    {
+                                        @:已成立訂單
+                                    }
+                                    else
+                                    {
+                                        @:未成立訂單
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            }
+        </table>
+    </div>
+</div>
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    (function ($) {
+        $(function () {
+            $(".sidenav").sidenav();
+            $(".dropdown-trigger").dropdown();
+            //有用到jQuery的功能就寫在這
+            $('.collapsible').collapsible();
+            $('.modal').modal();
+        }); // end of document ready
+    })(jQuery); // end of jQuery name space
+</script>
