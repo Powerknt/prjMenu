@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -55,12 +55,15 @@ namespace prjMenu.Models
                 while (reader2.Read())
                 {
                     cod = new COrderDetail();
-                    cod.f訂單編號 = (string)reader2["fO_Id"];
-                    cod.f食材名稱 = reader2["fRD_Ingredients"].ToString();
-                    cod.f訂購數量 = (int)reader2["fQty"];
-                    cod.f食材單位 = (string)reader2["fRD_Unit"];
                     cod.f是否購買 = (bool)reader2["fOD_Check"];
-                    訂單細項.Add(cod);
+                    if (cod.f是否購買 == true)
+                    {
+                        cod.f訂單編號 = (string)reader2["fO_Id"];
+                        cod.f食材名稱 = reader2["fRD_Ingredients"].ToString();
+                        cod.f訂購數量 = (int)reader2["fQty"];
+                        cod.f食材單位 = (string)reader2["fRD_Unit"];
+                        訂單細項.Add(cod);
+                    }
                 }
                 con.Close();
 
@@ -72,7 +75,7 @@ namespace prjMenu.Models
                 {
                     temp = new List<COrderDetail>();
                     var query = from t1 in 訂單細項
-                                where t1.f訂單編號 == 總項.list用戶訂單[j].f訂單編號                                
+                                where t1.f訂單編號 == 總項.list用戶訂單[j].f訂單編號
                                 group t1 by t1.f食材名稱 into g
                                 select new
                                 {
