@@ -15,7 +15,7 @@ namespace prjMenu.Models
             // Step1.找出目前登入會員且已送出的訂單編號的所需訂單主檔資訊
             SqlConnection con = new SqlConnection(@"Server=tcp:team2.database.windows.net,1433;Initial Catalog=dbRecipe;Persist Security Info=False;User ID=team2;Password=Team31649700;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM tOrderMaster WHERE fM_Id= @AA AND fO_Finished = @BB", con);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM tOrderMaster WHERE fM_Id= @AA AND fO_Finished = @BB ORDER BY fO_Id DESC", con);
             cmd.Parameters.AddWithValue("@AA", fM_Id);
             cmd.Parameters.AddWithValue("@BB", 1);
             SqlDataReader reader = cmd.ExecuteReader();
